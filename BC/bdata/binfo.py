@@ -1,4 +1,4 @@
-class _information:
+class information:
 
     def __init__(self, ID, creationDate) -> None:
         self.ID = ID

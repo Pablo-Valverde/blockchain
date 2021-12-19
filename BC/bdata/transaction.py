@@ -1,7 +1,7 @@
-from binfo import _information
+from BC.bdata.binfo import information
 
 
-class __transaction(_information):
+class transaction(information):
 
     def __init__(self, ID, creationDate, fromAddress, toAddress, amount, cID) -> None:
         super().__init__(ID, creationDate)
@@ -11,4 +11,4 @@ class __transaction(_information):
         self.cID = cID
 
     def __str__(self) -> str:
-        return "%s|%s->%s|%s->%s" % (super().__str__(), self.fromAddress,self.toAddress,self.amount,self.cID)
+        return "%s|%s->%s|%s->%s" % (super().__str__(), self.fromAddress, self.toAddress, self.amount, self.cID)
