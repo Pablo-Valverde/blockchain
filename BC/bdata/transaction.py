@@ -3,8 +3,8 @@ from BC.bdata.binfo import information
 
 class transaction(information):
 
-    def __init__(self, ID, creationDate, fromAddress, toAddress, amount, cID) -> None:
-        super().__init__(ID, creationDate)
+    def __init__(self, ID, bID, ldhash, fromAddress, toAddress, amount, cID, creationDate = None) -> None:
+        super().__init__(ID, bID, ldhash, creationDate)
         self.fromAddress = fromAddress
         self.toAddress = toAddress
         self.amount = amount

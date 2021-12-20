@@ -10,16 +10,22 @@ import random
 #b1.computeHash()
 #print(b1)
 
+hashes = {}
+
 def randaddress():
     return "0x" + format(random.randbytes(20).decode("Latin1"))
-
-for _ in range(0, random.randint(1,10)):
+    
+while True:
+#for _ in range(0, random.randint(100000000,100000000)):
     b = bManager.newBlock()
-    for _ in range(0, random.randint(0,10)):
-        fromAddress = randaddress()
-        toAddress = randaddress()
-        amount = random.random() * 10
-        time.sleep(random.random())
-        b.data.append(dManager.newTransaction(fromAddress, toAddress, amount, "BNB"))
+    #for _ in range(0, random.randint(1,1000)):
+    #    fromAddress = randaddress()
+    #    toAddress = randaddress()
+    #    amount = random.random() * 10
+    #    b.data.append(dManager.newTransaction(fromAddress, toAddress, amount, "BNB"))
     b.computeHash()
-    print("%s\n" % (b))
+    try:
+        hashes[b.bhash] += 1
+        print(b.bhash)
+    except:
+        hashes[b.bhash] = 1
