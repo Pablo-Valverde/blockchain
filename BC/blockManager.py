@@ -10,7 +10,6 @@ class manager:
     @staticmethod
     def newBlock() -> block:
         bhash = manager.lastBlock.bhash if not manager.lastBlock == None else FIRST_ON_CHAIN
-        b = block(manager.lastID, bhash)
-        manager.lastBlock = b
+        manager.lastBlock = block(manager.lastID, bhash)
         manager.lastID += 1
-        return b
+        return manager.lastBlock

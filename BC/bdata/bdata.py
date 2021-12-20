@@ -10,7 +10,7 @@ class data:
         self.type = "BCI"
         self.bID = bID
         self.ldhash = ldhash
-        self.dhash = None
+        self.dhash = HASH_NOT_CALCULATED
         self.creationDate = creationDate if not creationDate == None else datetime.datetime.now()
 
     @abstractmethod
@@ -19,5 +19,4 @@ class data:
         return h
 
     def __str__(self) -> str:
-        dhash = self.dhash if self.dhash != None else HASH_NOT_CALCULATED
-        return "%s-Hash:%s\nBlock:%s\nCreation date:%s\nLast data hash:%s" % (self.type, dhash, self.bID, self.creationDate, self.ldhash)
+        return "%s-Hash:%s\nBlock:%s\nCreation date:%s\nLast data hash:%s" % (self.type, self.dhash, self.bID, self.creationDate, self.ldhash)
