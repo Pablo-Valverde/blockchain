@@ -1,4 +1,4 @@
-from BC.bdata.binfo import information
+from BC.bdata.bdata import data
 from BC.bdata.transaction import transaction
 
 
@@ -9,7 +9,7 @@ class manager:
 
     @staticmethod
     def newData():
-        d = information(manager.lastID)
+        d = data(manager.lastID, 0, 0)
         manager.lastID += 1
         return d
 

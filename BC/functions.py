@@ -16,4 +16,4 @@ def format(s):
             formated += c
         else:
             formated += ord(c).__str__()
-    return formated
+    return "0x" + formated

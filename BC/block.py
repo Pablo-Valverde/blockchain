@@ -1,20 +1,35 @@
-from BC.BCConstants import HASH_NOT_CALCULATED, NO_DATA
-from BC.bdata.data import data as bdata
+import datetime
+from BC.BCConstants import HASH_NOT_CALCULATED, NO_DATA, FIRST_ON_CHAIN
+from BC.bdata.bdata import data
+from BC.bdata.transaction import transaction
 from BC.functions import sha256, format
 
 
-class block:
+class block(list):
 
-    def __init__(self, bID, lbhash, data = None) -> None:
+    def __init__(self, bID, lbhash, creationDate = None) -> None:
         self.bID = bID
         self.bhash = None
+        self.ldhash = FIRST_ON_CHAIN
         self.lbhash = lbhash
-        self.data = data if not data == None else bdata()
+        self.creationDate = creationDate if not creationDate == None else datetime.datetime.now()
 
     def computeHash(self):
-        self.bhash = "0x" + format(sha256("%s%s" % (self.lbhash, self.data)))
+        datahashes = "".join([bdata.dhash for bdata in self if type(bdata) == data])
+        s = "%s%s%s%s" % (self.bID, self.creationDate, self.lbhash, datahashes)
+        self.bhash = format(sha256(s))
 
     def __str__(self) -> str:
-        shash = self.bhash if self.bhash != None else HASH_NOT_CALCULATED
-        sdata = str(self.data) if str(self.data) != "" else NO_DATA
-        return "%s\n%s\n%s\n%s\n%s" % (self.data.creationDate, self.bID, shash, self.lbhash, sdata)
+        bhash = self.bhash if self.bhash != None else HASH_NOT_CALCULATED
+        sdata = "\n".join([str(s) for s in self]) if not self.__len__() == 0 else NO_DATA
+        return "BCB-Hash:%s\nbID:%s\nCreation date:%s\nLast block hash:%s\nTotal data transfered:%d\n%s" % (bhash, self.bID, self.creationDate, self.lbhash, self.__len__(), sdata)
+
+    def newData(self) -> data:
+        d = data(self.bID, self.ldhash)
+        self.append(d)
+        return d
+
+    def newTransaction(self, fromAddress, toAddress, amount, cID) -> transaction:
+        t = transaction(self.bID, self.ldhash, fromAddress, toAddress, amount, cID)
+        self.append(t)
+        return t
