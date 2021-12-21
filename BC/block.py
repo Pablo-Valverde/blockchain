@@ -19,10 +19,6 @@ class block(list):
         s = "%s%s%s%s" % (self.bID, self.creationDate, self.lbhash, datahashes)
         self.bhash = format(sha256(s))
 
-    def __str__(self) -> str:
-        sdata = "\n".join([str(s) for s in self]) if not self.__len__() == 0 else NO_DATA
-        return "BCB-Hash:%s\nbID:%s\nCreation date:%s\nLast block hash:%s\nTotal data transfered:%d\n%s" % (self.bhash, self.bID, self.creationDate, self.lbhash, self.__len__(), sdata)
-
     def newData(self) -> data:
         d = data(self.bID, self.ldhash)
         self.append(d)
@@ -32,3 +28,7 @@ class block(list):
         t = transaction(self.bID, self.ldhash, fromAddress, toAddress, amount, cID)
         self.append(t)
         return t
+
+    def __str__(self) -> str:
+        sdata = "\n".join([str(s) for s in self]) if not self.__len__() == 0 else NO_DATA
+        return "BCB-Hash:%s\nbID:%s\nCreation date:%s\nLast block hash:%s\nTotal data transfered:%d\n%s" % (self.bhash, self.bID, self.creationDate, self.lbhash, self.__len__(), sdata)

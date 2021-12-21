@@ -14,9 +14,8 @@ class data:
         self.creationDate = creationDate if not creationDate == None else datetime.datetime.now()
 
     @abstractmethod
-    def computeHash(self) -> str:
-        h = format(sha256("%s%s%s%s" % (self.bID, self.dhash, self.ldhash, self.creationDate)))
-        return h
+    def computeHash(self) -> None:
+        self.dhash = format(sha256("%s%s%s%s" % (self.bID, self.dhash, self.ldhash, self.creationDate)))
 
     def __str__(self) -> str:
         return "%s-Hash:%s\nBlock:%s\nCreation date:%s\nLast data hash:%s" % (self.type, self.dhash, self.bID, self.creationDate, self.ldhash)

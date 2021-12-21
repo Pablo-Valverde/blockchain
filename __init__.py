@@ -11,6 +11,6 @@ for _ in range(0, random.randint(1,10)):
         fromAddress = randaddress()
         toAddress = randaddress()
         amount = random.random() * 10
-        b.newTransaction(fromAddress,toAddress,amount,0)
+        b.newTransaction(fromAddress,toAddress,amount,0).computeHash()
     b.computeHash()
     print(b.__str__() + "\n")
